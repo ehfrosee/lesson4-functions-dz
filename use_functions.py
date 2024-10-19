@@ -33,6 +33,30 @@
 
 Для реализации основного меню можно использовать пример ниже или написать свой
 """
+account = 0
+purchase_list = []
+def income():
+    """
+    Функция пополнения счёта
+    """
+    global account
+    sum = int(input("Введите сумму пополнения: "))
+    account += sum
+
+def buy():
+    global account, purchase_list
+    sum = int(input("Введите сумму покупки: "))
+    if sum > account:
+        print("На счёте не достаточно денег для покупки.")
+        return
+    else:
+        purchise = input("Введите название покупки: ")
+        account -= sum
+        purchase_list.append([purchise, sum])
+        return
+def print_purchase_list():
+    for purchise in purchase_list:
+        print("Покупка: {}, сумма {}".format(purchise[0], purchise[1]))
 
 while True:
     print('1. пополнение счета')
@@ -40,14 +64,15 @@ while True:
     print('3. история покупок')
     print('4. выход')
 
-    choice = input('Выберите пункт меню')
-    if choice == '1':
-        pass
-    elif choice == '2':
-        pass
-    elif choice == '3':
-        pass
-    elif choice == '4':
-        break
-    else:
-        print('Неверный пункт меню')
+    choice = input('Выберите пункт меню: ')
+    match choice:
+        case '1':
+            income()
+        case '2':
+            buy()
+        case '3':
+            print_purchase_list()
+        case '4':
+            break
+        case _:
+            print('Неверный пункт меню')
